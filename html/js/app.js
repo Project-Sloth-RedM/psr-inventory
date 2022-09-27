@@ -230,8 +230,8 @@ $(document).on("click", "#inv-close", function(e) {
 
 $(document).on("click", ".weapon-attachments-back", function(e) {
     e.preventDefault();
-    $("#qbcore-inventory").css({ display: "block" });
-    $("#qbcore-inventory").animate({
+    $("#psrcore-inventory").css({ display: "block" });
+    $("#psrcore-inventory").animate({
             left: 0 + "vw",
         },
         200
@@ -399,12 +399,12 @@ $(document).on("click", "#weapon-attachments", function(e) {
     e.preventDefault();
     if (!Inventory.IsWeaponBlocked(ClickedItemData.name)) {
         $(".weapon-attachments-container").css({ display: "block" });
-        $("#qbcore-inventory").animate({
+        $("#psrcore-inventory").animate({
                 left: 100 + "vw",
             },
             200,
             function() {
-                $("#qbcore-inventory").css({ display: "none" });
+                $("#psrcore-inventory").css({ display: "none" });
             }
         );
         $(".weapon-attachments-container").animate({
@@ -620,7 +620,7 @@ function FormatItemInfo(itemData, dom) {
             } else {
                 $(".item-info-description").html("<p> Value: " + itemData.info.value + "</p>");
             }
-        } 
+        }
          else if (itemData.name == "markedbills") {
             $(".item-info-title").html("<p>" + itemData.label + "</p>");
             $(".item-info-description").html(
@@ -1385,13 +1385,13 @@ function swap($fromSlot, $toSlot, $fromInv, $toInv, $toAmount) {
                         if (newData.info.quality == undefined) {
                             newData.info.quality = 100.0;
                         }
-                        var QualityColor = "rgb(15, 255, 213)";
+                        var QualityColor = "rgb(2 241 255)";
                         if (newData.info.quality < 25) {
                             QualityColor = "rgb(192, 57, 43)";
                         } else if (newData.info.quality > 25 && newData.info.quality < 50) {
                             QualityColor = "rgb(230, 126, 34)";
                         } else if (newData.info.quality >= 50) {
-                            QualityColor = "rgb(15, 255, 213)";
+                            QualityColor = "rgb(2 241 255)";
                         }
                         if (newData.info.quality !== undefined) {
                             qualityLabel = newData.info.quality.toFixed();
@@ -1510,13 +1510,13 @@ function swap($fromSlot, $toSlot, $fromInv, $toInv, $toAmount) {
                         if (newData.info.quality == undefined) {
                             newData.info.quality = 100.0;
                         }
-                        var QualityColor = "rgb(15, 255, 213)";
+                        var QualityColor = "rgb(2 241 255)";
                         if (newData.info.quality < 25) {
                             QualityColor = "rgb(192, 57, 43)";
                         } else if (newData.info.quality > 25 && newData.info.quality < 50) {
                             QualityColor = "rgb(230, 126, 34)";
                         } else if (newData.info.quality >= 50) {
-                            QualityColor = "rgb(15, 255, 213)";
+                            QualityColor = "rgb(2 241 255)";
                         }
                         if (newData.info.quality !== undefined) {
                             qualityLabel = newData.info.quality.toFixed();
@@ -1645,7 +1645,7 @@ function swap($fromSlot, $toSlot, $fromInv, $toInv, $toAmount) {
                             if (newDataFrom.info.quality == undefined) {
                                 newDataFrom.info.quality = 100.0;
                             }
-                            var QualityColor = "rgb(15, 255, 213)";
+                            var QualityColor = "rgb(2 241 255)";
                             if (newDataFrom.info.quality < 25) {
                                 QualityColor = "rgb(192, 57, 43)";
                             } else if (
@@ -1654,7 +1654,7 @@ function swap($fromSlot, $toSlot, $fromInv, $toInv, $toAmount) {
                             ) {
                                 QualityColor = "rgb(230, 126, 34)";
                             } else if (newDataFrom.info.quality >= 50) {
-                                QualityColor = "rgb(15, 255, 213)";
+                                QualityColor = "rgb(2 241 255)";
                             }
                             if (newDataFrom.info.quality !== undefined) {
                                 qualityLabel = newDataFrom.info.quality.toFixed();
@@ -1791,7 +1791,7 @@ function swap($fromSlot, $toSlot, $fromInv, $toInv, $toAmount) {
                         if (fromData.info.quality == undefined) {
                             fromData.info.quality = 100.0;
                         }
-                        var QualityColor = "rgb(15, 255, 213)";
+                        var QualityColor = "rgb(2 241 255)";
                         if (fromData.info.quality < 25) {
                             QualityColor = "rgb(192, 57, 43)";
                         } else if (
@@ -1800,7 +1800,7 @@ function swap($fromSlot, $toSlot, $fromInv, $toInv, $toAmount) {
                         ) {
                             QualityColor = "rgb(230, 126, 34)";
                         } else if (fromData.info.quality >= 50) {
-                            QualityColor = "rgb(15, 255, 213)";
+                            QualityColor = "rgb(2 241 255)";
                         }
                         if (fromData.info.quality !== undefined) {
                             qualityLabel = fromData.info.quality.toFixed();
@@ -1903,13 +1903,13 @@ function swap($fromSlot, $toSlot, $fromInv, $toInv, $toAmount) {
                             if (toData.info.quality == undefined) {
                                 toData.info.quality = 100.0;
                             }
-                            var QualityColor = "rgb(15, 255, 213)";
+                            var QualityColor = "rgb(2 241 255)";
                             if (toData.info.quality < 25) {
                                 QualityColor = "rgb(192, 57, 43)";
                             } else if (toData.info.quality > 25 && toData.info.quality < 50) {
                                 QualityColor = "rgb(230, 126, 34)";
                             } else if (toData.info.quality >= 50) {
-                                QualityColor = "rgb(15, 255, 213)";
+                                QualityColor = "rgb(2 241 255)";
                             }
                             if (toData.info.quality !== undefined) {
                                 qualityLabel = toData.info.quality.toFixed();
@@ -2077,7 +2077,7 @@ function swap($fromSlot, $toSlot, $fromInv, $toInv, $toAmount) {
                         if (newDataTo.info.quality == undefined) {
                             newDataTo.info.quality = 100.0;
                         }
-                        var QualityColor = "rgb(15, 255, 213)";
+                        var QualityColor = "rgb(2 241 255)";
                         if (newDataTo.info.quality < 25) {
                             QualityColor = "rgb(192, 57, 43)";
                         } else if (
@@ -2086,7 +2086,7 @@ function swap($fromSlot, $toSlot, $fromInv, $toInv, $toAmount) {
                         ) {
                             QualityColor = "rgb(230, 126, 34)";
                         } else if (newDataTo.info.quality >= 50) {
-                            QualityColor = "rgb(15, 255, 213)";
+                            QualityColor = "rgb(2 241 255)";
                         }
                         if (newDataTo.info.quality !== undefined) {
                             qualityLabel = newDataTo.info.quality.toFixed();
@@ -2228,7 +2228,7 @@ function swap($fromSlot, $toSlot, $fromInv, $toInv, $toAmount) {
                             if (newDataFrom.info.quality == undefined) {
                                 newDataFrom.info.quality = 100.0;
                             }
-                            var QualityColor = "rgb(15, 255, 213)";
+                            var QualityColor = "rgb(2 241 255)";
                             if (newDataFrom.info.quality < 25) {
                                 QualityColor = "rgb(192, 57, 43)";
                             } else if (
@@ -2237,7 +2237,7 @@ function swap($fromSlot, $toSlot, $fromInv, $toInv, $toAmount) {
                             ) {
                                 QualityColor = "rgb(230, 126, 34)";
                             } else if (newDataFrom.info.quality >= 50) {
-                                QualityColor = "rgb(15, 255, 213)";
+                                QualityColor = "rgb(2 241 255)";
                             }
                             if (newDataFrom.info.quality !== undefined) {
                                 qualityLabel = newDataFrom.info.quality.toFixed();
@@ -2338,13 +2338,13 @@ var requiredItemOpen = false;
                 if (item.info.quality == undefined) {
                     item.info.quality = 100;
                 }
-                var QualityColor = "rgb(15, 255, 213)";
+                var QualityColor = "rgb(2 241 255)";
                 if (item.info.quality < 25) {
                     QualityColor = "rgb(192, 57, 43)";
                 } else if (item.info.quality > 25 && item.info.quality < 50) {
                     QualityColor = "rgb(230, 126, 34)";
                 } else if (item.info.quality >= 50) {
-                    QualityColor = "rgb(15, 255, 213)";
+                    QualityColor = "rgb(2 241 255)";
                 }
                 if (item.info.quality !== undefined) {
                     qualityLabel = item.info.quality.toFixed();
@@ -2439,7 +2439,7 @@ var requiredItemOpen = false;
             requiredItemOpen = false;
         }
 
-        $("#qbcore-inventory").fadeIn(300);
+        $("#psrcore-inventory").fadeIn(300);
         if (data.other != null && data.other != "") {
             $(".other-inventory").attr("data-inventory", data.other.name);
         } else {
@@ -2718,7 +2718,7 @@ var requiredItemOpen = false;
         $(".ply-hotbar-inventory").css("display", "block");
         // $(".ply-iteminfo-container").css("display", "none");
         $(".ply-iteminfo-container").css("opacity", "0.0");
-        $("#qbcore-inventory").fadeOut(300);
+        $("#psrcore-inventory").fadeOut(300);
         $(".combine-option-container").hide();
         $(".item-slot").remove();
         if ($("#rob-money").length) {
@@ -2727,7 +2727,7 @@ var requiredItemOpen = false;
         $.post(`https://${GetParentResourceName()}/CloseInventory`, JSON.stringify({}));
 
         if (AttachmentScreenActive) {
-            $("#qbcore-inventory").css({ left: "0vw" });
+            $("#psrcore-inventory").css({ left: "0vw" });
             $(".weapon-attachments-container").css({ left: "-100vw" });
             AttachmentScreenActive = false;
         }

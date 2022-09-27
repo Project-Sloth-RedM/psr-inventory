@@ -1165,38 +1165,6 @@ RegisterNetEvent('inventory:server:combineItem', function(item, fromItem, toItem
 	RemoveItem(src, toItem.name, 1)
 end)
 
-RegisterNetEvent('inventory:server:CraftItems', function(itemName, itemCosts, amount, toSlot, points)
-	local src = source
-	local Player = PSRCore.Functions.GetPlayer(src)
-
-	amount = tonumber(amount)
-
-	if not itemName or not itemCosts then return end
-
-	for k, v in pairs(itemCosts) do
-		RemoveItem(src, k, (v*amount))
-	end
-	AddItem(src, itemName, amount, toSlot)
-	Player.Functions.SetMetaData("craftingrep", Player.PlayerData.metadata["craftingrep"] + (points * amount))
-	TriggerClientEvent("inventory:client:UpdatePlayerInventory", src, false)
-end)
-
-RegisterNetEvent('inventory:server:CraftAttachment', function(itemName, itemCosts, amount, toSlot, points)
-	local src = source
-	local Player = PSRCore.Functions.GetPlayer(src)
-
-	amount = tonumber(amount)
-
-	if not itemName or not itemCosts then return end
-
-	for k, v in pairs(itemCosts) do
-		RemoveItem(src, k, (v*amount))
-	end
-	AddItem(src, itemName, amount, toSlot)
-	Player.Functions.SetMetaData("attachmentcraftingrep", Player.PlayerData.metadata["attachmentcraftingrep"] + (points * amount))
-	TriggerClientEvent("inventory:client:UpdatePlayerInventory", src, false)
-end)
-
 RegisterNetEvent('inventory:server:SetIsOpenState', function(IsOpen, type, id)
 	if IsOpen then return end
 
@@ -1925,22 +1893,6 @@ RegisterNetEvent('inventory:server:SetInventoryData', function(fromInventory, to
 				PSRCore.Functions.Notify(src, Lang:t("notify.notencash"), "error")
 			end
 		end
-	elseif fromInventory == "crafting" then
-		local itemData = Config.CraftingItems[fromSlot]
-		if hasCraftItems(src, itemData.costs, fromAmount) then
-			TriggerClientEvent("inventory:client:CraftItems", src, itemData.name, itemData.costs, fromAmount, toSlot, itemData.points)
-		else
-			TriggerClientEvent("inventory:client:UpdatePlayerInventory", src, true)
-			PSRCore.Functions.Notify(src, Lang:t("notify.noitem"), "error")
-		end
-	elseif fromInventory == "attachment_crafting" then
-		local itemData = Config.AttachmentCrafting["items"][fromSlot]
-		if hasCraftItems(src, itemData.costs, fromAmount) then
-			TriggerClientEvent("inventory:client:CraftAttachment", src, itemData.name, itemData.costs, fromAmount, toSlot, itemData.points)
-		else
-			TriggerClientEvent("inventory:client:UpdatePlayerInventory", src, true)
-			PSRCore.Functions.Notify(src, Lang:t("notify.noitem"), "error")
-		end
 	else
 		-- drop
 		fromInventory = tonumber(fromInventory)
@@ -2042,14 +1994,6 @@ RegisterServerEvent("inventory:server:GiveItem", function(target, name, amount, 
 		end
 	else
 		PSRCore.Functions.Notify(src, Lang:t("notify.gitydhitt"))
-	end
-end)
-
-RegisterNetEvent('inventory:server:snowball', function(action)
-	if action == "add" then
-		AddItem(source, "weapon_snowball")
-	elseif action == "remove" then
-		RemoveItem(source, "weapon_snowball")
 	end
 end)
 

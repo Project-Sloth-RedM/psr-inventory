@@ -11,7 +11,6 @@ local DropsNear = {}
 local CurrentVehicle = nil
 local CurrentGlovebox = nil
 local CurrentStash = nil
-local isCrafting = false
 local isHotbar = false
 local WeaponAttachments = {}
 
@@ -55,32 +54,6 @@ local function HasItem(items, amount)
 end
 
 exports("HasItem", HasItem)
-
----Gets the closest vending machine object to the client
----@return integer closestVendingMachine
-local function GetClosestVending()
-    local ped = PlayerPedId()
-    local pos = GetEntityCoords(ped)
-    local object = nil
-    for _, machine in pairs(Config.VendingObjects) do
-        local ClosestObject = GetClosestObjectOfType(pos.x, pos.y, pos.z, 0.75, joaat(machine), false, false, false)
-        if ClosestObject ~= 0 then
-            if object == nil then
-                object = ClosestObject
-            end
-        end
-    end
-    return object
-end
-
----Opens the vending machine shop
-local function OpenVending()
-    local ShopItems = {}
-    ShopItems.label = "Vending Machine"
-    ShopItems.items = Config.VendingItem
-    ShopItems.slots = #Config.VendingItem
-    TriggerServerEvent("inventory:server:OpenInventory", "shop", "Vendingshop_"..math.random(1, 99), ShopItems)
-end
 
 ---Draws 3d text in the world on the given position
 ---@param x number The x coord of the text to draw
@@ -136,13 +109,6 @@ local function FormatWeaponAttachments(itemdata)
         end
     end
     return attachments
-end
-
----Checks if the vehicle's engine is at the back or not
----@param vehModel integer The model hash of the vehicle
----@return boolean isBackEngine
-local function IsBackEngine(vehModel)
-    return BackEngineVehicles[vehModel]
 end
 
 ---Opens the trunk of the closest vehicle
@@ -206,107 +172,6 @@ end
 local function openAnim()
     LoadAnimDict('pickup_object')
     TaskPlayAnim(PlayerPedId(),'pickup_object', 'putdown_low', 5.0, 1.5, 1.0, 48, 0.0, 0, 0, 0)
-end
-
----Setup item info for items from Config.CraftingItems
-local function ItemsToItemInfo()
-	local itemInfos = {
-		[1] = {costs = PSRCore.Shared.Items["metalscrap"]["label"] .. ": 22x, " ..PSRCore.Shared.Items["plastic"]["label"] .. ": 32x."},
-		[2] = {costs = PSRCore.Shared.Items["metalscrap"]["label"] .. ": 30x, " ..PSRCore.Shared.Items["plastic"]["label"] .. ": 42x."},
-		[3] = {costs = PSRCore.Shared.Items["metalscrap"]["label"] .. ": 30x, " ..PSRCore.Shared.Items["plastic"]["label"] .. ": 45x, "..PSRCore.Shared.Items["aluminum"]["label"] .. ": 28x."},
-		[4] = {costs = PSRCore.Shared.Items["electronickit"]["label"] .. ": 2x, " ..PSRCore.Shared.Items["plastic"]["label"] .. ": 52x, "..PSRCore.Shared.Items["steel"]["label"] .. ": 40x."},
-		[5] = {costs = PSRCore.Shared.Items["metalscrap"]["label"] .. ": 10x, " ..PSRCore.Shared.Items["plastic"]["label"] .. ": 50x, "..PSRCore.Shared.Items["aluminum"]["label"] .. ": 30x, "..PSRCore.Shared.Items["iron"]["label"] .. ": 17x, "..PSRCore.Shared.Items["electronickit"]["label"] .. ": 1x."},
-		[6] = {costs = PSRCore.Shared.Items["metalscrap"]["label"] .. ": 36x, " ..PSRCore.Shared.Items["steel"]["label"] .. ": 24x, "..PSRCore.Shared.Items["aluminum"]["label"] .. ": 28x."},
-		[7] = {costs = PSRCore.Shared.Items["metalscrap"]["label"] .. ": 32x, " ..PSRCore.Shared.Items["steel"]["label"] .. ": 43x, "..PSRCore.Shared.Items["plastic"]["label"] .. ": 61x."},
-		[8] = {costs = PSRCore.Shared.Items["metalscrap"]["label"] .. ": 50x, " ..PSRCore.Shared.Items["steel"]["label"] .. ": 37x, "..PSRCore.Shared.Items["copper"]["label"] .. ": 26x."},
-		[9] = {costs = PSRCore.Shared.Items["iron"]["label"] .. ": 60x, " ..PSRCore.Shared.Items["glass"]["label"] .. ": 30x."},
-		[10] = {costs = PSRCore.Shared.Items["aluminum"]["label"] .. ": 60x, " ..PSRCore.Shared.Items["glass"]["label"] .. ": 30x."},
-		[11] = {costs = PSRCore.Shared.Items["iron"]["label"] .. ": 33x, " ..PSRCore.Shared.Items["steel"]["label"] .. ": 44x, "..PSRCore.Shared.Items["plastic"]["label"] .. ": 55x, "..PSRCore.Shared.Items["aluminum"]["label"] .. ": 22x."},
-		[12] = {costs = PSRCore.Shared.Items["iron"]["label"] .. ": 50x, " ..PSRCore.Shared.Items["steel"]["label"] .. ": 50x, "..PSRCore.Shared.Items["screwdriverset"]["label"] .. ": 3x, "..PSRCore.Shared.Items["advancedlockpick"]["label"] .. ": 2x."},
-	}
-
-	local items = {}
-	for _, item in pairs(Config.CraftingItems) do
-		local itemInfo = PSRCore.Shared.Items[item.name:lower()]
-		items[item.slot] = {
-			name = itemInfo["name"],
-			amount = tonumber(item.amount),
-			info = itemInfos[item.slot],
-			label = itemInfo["label"],
-			description = itemInfo["description"] or "",
-			weight = itemInfo["weight"],
-			type = itemInfo["type"],
-			unique = itemInfo["unique"],
-			useable = itemInfo["useable"],
-			image = itemInfo["image"],
-			slot = item.slot,
-			costs = item.costs,
-			threshold = item.threshold,
-			points = item.points,
-		}
-	end
-	Config.CraftingItems = items
-end
-
----Setup item info for items from Config.AttachmentCrafting["items"]
-local function SetupAttachmentItemsInfo()
-	local itemInfos = {
-		[1] = {costs = PSRCore.Shared.Items["metalscrap"]["label"] .. ": 140x, " .. PSRCore.Shared.Items["steel"]["label"] .. ": 250x, " .. PSRCore.Shared.Items["rubber"]["label"] .. ": 60x"},
-		[2] = {costs = PSRCore.Shared.Items["metalscrap"]["label"] .. ": 165x, " .. PSRCore.Shared.Items["steel"]["label"] .. ": 285x, " .. PSRCore.Shared.Items["rubber"]["label"] .. ": 75x"},
-		[3] = {costs = PSRCore.Shared.Items["metalscrap"]["label"] .. ": 190x, " .. PSRCore.Shared.Items["steel"]["label"] .. ": 305x, " .. PSRCore.Shared.Items["rubber"]["label"] .. ": 85x, " .. PSRCore.Shared.Items["smg_extendedclip"]["label"] .. ": 1x"},
-		[4] = {costs = PSRCore.Shared.Items["metalscrap"]["label"] .. ": 205x, " .. PSRCore.Shared.Items["steel"]["label"] .. ": 340x, " .. PSRCore.Shared.Items["rubber"]["label"] .. ": 110x, " .. PSRCore.Shared.Items["smg_extendedclip"]["label"] .. ": 2x"},
-		[5] = {costs = PSRCore.Shared.Items["metalscrap"]["label"] .. ": 230x, " .. PSRCore.Shared.Items["steel"]["label"] .. ": 365x, " .. PSRCore.Shared.Items["rubber"]["label"] .. ": 130x"},
-		[6] = {costs = PSRCore.Shared.Items["metalscrap"]["label"] .. ": 255x, " .. PSRCore.Shared.Items["steel"]["label"] .. ": 390x, " .. PSRCore.Shared.Items["rubber"]["label"] .. ": 145x"},
-		[7] = {costs = PSRCore.Shared.Items["metalscrap"]["label"] .. ": 270x, " .. PSRCore.Shared.Items["steel"]["label"] .. ": 435x, " .. PSRCore.Shared.Items["rubber"]["label"] .. ": 155x"},
-		[8] = {costs = PSRCore.Shared.Items["metalscrap"]["label"] .. ": 300x, " .. PSRCore.Shared.Items["steel"]["label"] .. ": 469x, " .. PSRCore.Shared.Items["rubber"]["label"] .. ": 170x"},
-	}
-
-	local items = {}
-	for _, item in pairs(Config.AttachmentCrafting["items"]) do
-		local itemInfo = PSRCore.Shared.Items[item.name:lower()]
-		items[item.slot] = {
-			name = itemInfo["name"],
-			amount = tonumber(item.amount),
-			info = itemInfos[item.slot],
-			label = itemInfo["label"],
-			description = itemInfo["description"] or "",
-			weight = itemInfo["weight"],
-			unique = itemInfo["unique"],
-			useable = itemInfo["useable"],
-			image = itemInfo["image"],
-			slot = item.slot,
-			costs = item.costs,
-			threshold = item.threshold,
-			points = item.points,
-		}
-	end
-	Config.AttachmentCrafting["items"] = items
-end
-
----Runs ItemsToItemInfo() and checks if the client has enough reputation to support the threshold, otherwise the items is not available to craft for the client
----@return table items
-local function GetThresholdItems()
-	ItemsToItemInfo()
-	local items = {}
-	for k in pairs(Config.CraftingItems) do
-		if PlayerData.metadata["craftingrep"] >= Config.CraftingItems[k].threshold then
-			items[k] = Config.CraftingItems[k]
-		end
-	end
-	return items
-end
-
----Runs SetupAttachmentItemsInfo() and checks if the client has enough reputation to support the threshold, otherwise the items is not available to craft for the client
----@return table items
-local function GetAttachmentThresholdItems()
-	SetupAttachmentItemsInfo()
-	local items = {}
-	for k in pairs(Config.AttachmentCrafting["items"]) do
-		if PlayerData.metadata["attachmentcraftingrep"] >= Config.AttachmentCrafting["items"][k].threshold then
-			items[k] = Config.AttachmentCrafting["items"][k]
-		end
-	end
-	return items
 end
 
 ---Removes drops in the area of the client
@@ -478,79 +343,6 @@ RegisterNetEvent('inventory:client:UpdatePlayerInventory', function(isError)
     })
 end)
 
-RegisterNetEvent('inventory:client:CraftItems', function(itemName, itemCosts, amount, toSlot, points)
-    local ped = PlayerPedId()
-    SendNUIMessage({
-        action = "close",
-    })
-    isCrafting = true
-    PSRCore.Functions.Progressbar("repair_vehicle", Lang:t("progress.crafting"), (math.random(2000, 5000) * amount), false, true, {
-	    disableMovement = true,
-	    disableCarMovement = true,
-	    disableMouse = false,
-	    disableCombat = true,
-	}, {
-	    animDict = "mini@repair",
-	    anim = "fixing_a_player",
-	    flags = 16,
-	}, {}, {}, function() -- Done
-	    StopAnimTask(ped, "mini@repair", "fixing_a_player", 1.0)
-            TriggerServerEvent("inventory:server:CraftItems", itemName, itemCosts, amount, toSlot, points)
-            TriggerEvent('inventory:client:ItemBox', PSRCore.Shared.Items[itemName], 'add')
-            isCrafting = false
-	end, function() -- Cancel
-	    StopAnimTask(ped, "mini@repair", "fixing_a_player", 1.0)
-            PSRCore.Functions.Notify(Lang:t("notify.failed"), "error")
-            isCrafting = false
-	end)
-end)
-
-RegisterNetEvent('inventory:client:CraftAttachment', function(itemName, itemCosts, amount, toSlot, points)
-    local ped = PlayerPedId()
-    SendNUIMessage({
-        action = "close",
-    })
-    isCrafting = true
-    PSRCore.Functions.Progressbar("repair_vehicle", Lang:t("progress.crafting"), (math.random(2000, 5000) * amount), false, true, {
-	    disableMovement = true,
-	    disableCarMovement = true,
-	    disableMouse = false,
-	    disableCombat = true,
-	}, {
-	    animDict = "mini@repair",
-	    anim = "fixing_a_player",
-	    flags = 16,
-	}, {}, {}, function() -- Done
-	    StopAnimTask(ped, "mini@repair", "fixing_a_player", 1.0)
-            TriggerServerEvent("inventory:server:CraftAttachment", itemName, itemCosts, amount, toSlot, points)
-            TriggerEvent('inventory:client:ItemBox', PSRCore.Shared.Items[itemName], 'add')
-            isCrafting = false
-	end, function() -- Cancel
-	    StopAnimTask(ped, "mini@repair", "fixing_a_player", 1.0)
-            PSRCore.Functions.Notify(Lang:t("notify.failed"), "error")
-            isCrafting = false
-	end)
-end)
-
-RegisterNetEvent('inventory:client:PickupSnowballs', function()
-    local ped = PlayerPedId()
-    LoadAnimDict('anim@mp_snowball')
-    TaskPlayAnim(ped, 'anim@mp_snowball', 'pickup_snowball', 3.0, 3.0, -1, 0, 1, 0, 0, 0)
-    PSRCore.Functions.Progressbar("pickupsnowball", Lang:t("progress.snowballs"), 1500, false, true, {
-        disableMovement = true,
-        disableCarMovement = true,
-        disableMouse = false,
-        disableCombat = true,
-    }, {}, {}, {}, function() -- Done
-        ClearPedTasks(ped)
-	TriggerServerEvent('inventory:server:snowball', 'add')
-        TriggerEvent('inventory:client:ItemBox', PSRCore.Shared.Items["snowball"], "add")
-    end, function() -- Cancel
-        ClearPedTasks(ped)
-        PSRCore.Functions.Notify(Lang:t("notify.canceled"), "error")
-    end)
-end)
-
 RegisterNetEvent('inventory:client:UseWeapon', function(weaponData, shootbool)
     local ped = PlayerPedId()
     local weaponName = tostring(weaponData.name)
@@ -651,13 +443,6 @@ RegisterNetEvent('psr-inventory:client:giveAnim', function()
     end
 end)
 
-RegisterNetEvent('inventory:client:craftTarget',function()
-    local crafting = {}
-    crafting.label = Lang:t("label.craft")
-    crafting.items = GetThresholdItems()
-    TriggerServerEvent("inventory:server:OpenInventory", "crafting", math.random(1, 99), crafting)
-end)
-
 --#endregion Events
 
 --#region Commands
@@ -667,12 +452,10 @@ RegisterCommand('closeinv', function()
 end, false)
 
 RegisterCommand('inventory', function()
-    if not isCrafting and not inInventory then
+    if not inInventory then
         if not PlayerData.metadata["isdead"] and not PlayerData.metadata["inlaststand"] and not PlayerData.metadata["ishandcuffed"] and not IsPauseMenuActive() then
             local ped = PlayerPedId()
             local curVeh = nil
-            local VendingMachine = nil
-            if not Config.UseTarget then VendingMachine = GetClosestVending() end
 
             if IsPedInAnyVehicle(ped, false) then -- Is Player In Vehicle
                 local vehicle = GetVehiclePedIsIn(ped, false)
@@ -768,12 +551,6 @@ RegisterCommand('inventory', function()
                 TriggerServerEvent("inventory:server:OpenInventory", "glovebox", CurrentGlovebox)
             elseif CurrentDrop ~= 0 then
                 TriggerServerEvent("inventory:server:OpenInventory", "drop", CurrentDrop)
-            elseif VendingMachine then
-                local ShopItems = {}
-                ShopItems.label = "Vending Machine"
-                ShopItems.items = Config.VendingItem
-                ShopItems.slots = #Config.VendingItem
-                TriggerServerEvent("inventory:server:OpenInventory", "shop", "Vendingshop_"..math.random(1, 99), ShopItems)
             else
                 openAnim()
                 TriggerServerEvent("inventory:server:OpenInventory")
@@ -1025,85 +802,6 @@ CreateThread(function()
             DropsNear = {}
         end
         Wait(500)
-    end
-end)
-
-CreateThread(function()
-    if Config.UseTarget then
-        exports['qb-target']:AddTargetModel(Config.VendingObjects, {
-            options = {
-                {
-                    icon = "fa-solid fa-cash-register",
-                    label = Lang:t("menu.vending"),
-                    action = function()
-                        OpenVending()
-                    end
-                },
-            },
-            distance = 2.5
-        })
-    end
-end)
-
-CreateThread(function()
-    if Config.UseTarget then
-        exports['qb-target']:AddTargetModel(Config.CraftingObject, {
-            options = {
-                {
-                    event = "inventory:client:craftTarget",
-                    icon = "fas fa-tools",
-                    label = Lang:t("menu.craft"),
-                },
-            },
-            distance = 2.5,
-        })
-    else
-        while true do
-            local sleep = 1000
-            if LocalPlayer.state['isLoggedIn'] then
-                local pos = GetEntityCoords(PlayerPedId())
-                local craftObject = GetClosestObjectOfType(pos, 2.0, Config.CraftingObject, false, false, false)
-                if craftObject ~= 0 then
-                    local objectPos = GetEntityCoords(craftObject)
-                    if #(pos - objectPos) < 1.5 then
-                        sleep = 0
-                        DrawText3Ds(objectPos.x, objectPos.y, objectPos.z + 1.0, Lang:t("interaction.craft"))
-                        if IsControlJustReleased(0, 38) then
-                            local crafting = {}
-                            crafting.label = Lang:t("label.craft")
-                            crafting.items = GetThresholdItems()
-                            TriggerServerEvent("inventory:server:OpenInventory", "crafting", math.random(1, 99), crafting)
-                            sleep = 100
-                        end
-                    end
-                end
-            end
-            Wait(sleep)
-        end
-    end
-end)
-
-CreateThread(function()
-    while true do
-        local sleep = 1000
-        if LocalPlayer.state['isLoggedIn'] then
-            local pos = GetEntityCoords(PlayerPedId())
-            local distance = #(pos - Config.AttachmentCraftingLocation)
-            if distance < 10 then
-                if distance < 1.5 then
-                    sleep = 0
-                    DrawText3Ds(Config.AttachmentCraftingLocation.x, Config.AttachmentCraftingLocation.y, Config.AttachmentCraftingLocation.z, Lang:t("interaction.craft"))
-                    if IsControlJustPressed(0, 38) then
-                        local crafting = {}
-                        crafting.label = Lang:t("label.a_craft")
-                        crafting.items = GetAttachmentThresholdItems()
-                        TriggerServerEvent("inventory:server:OpenInventory", "attachment_crafting", math.random(1, 99), crafting)
-                        sleep = 100
-                    end
-                end
-            end
-        end
-        Wait(sleep)
     end
 end)
 
