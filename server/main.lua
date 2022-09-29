@@ -1321,24 +1321,6 @@ RegisterNetEvent('inventory:server:OpenInventory', function(name, id, other)
 				ShopItems[id] = {}
 				ShopItems[id].items = other.items
 				secondInv.slots = #other.items
-			elseif name == "traphouse" then
-				secondInv.name = "traphouse-"..id
-				secondInv.label = other.label
-				secondInv.maxweight = 900000
-				secondInv.inventory = other.items
-				secondInv.slots = other.slots
-			elseif name == "crafting" then
-				secondInv.name = "crafting"
-				secondInv.label = other.label
-				secondInv.maxweight = 900000
-				secondInv.inventory = other.items
-				secondInv.slots = #other.items
-			elseif name == "attachment_crafting" then
-				secondInv.name = "attachment_crafting"
-				secondInv.label = other.label
-				secondInv.maxweight = 900000
-				secondInv.inventory = other.items
-				secondInv.slots = #other.items
 			elseif name == "otherplayer" then
 				local OtherPlayer = PSRCore.Functions.GetPlayer(tonumber(id))
 				if OtherPlayer then
