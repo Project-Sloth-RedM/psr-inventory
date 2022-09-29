@@ -1,4 +1,4 @@
-@import url("https://fonts.cdnfonts.com/css/chinese-rocks");
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
 
 .bg-button { background: rgba(23,23,23, 90)!important; }
 .text-check { color: rgba(255, 255, 255, 0.8)!important; }
@@ -46,7 +46,7 @@ p { margin: 0 !important; }
     line-height: 48px;
     text-transform: normal;
     font-size: 1.5vh;
-    font-family: 'Chinese Rocks Rg', sans-serif !important;
+    font-family: 'Roboto', sans-serif !important;
   }
 
 /* rgb() */
@@ -209,7 +209,7 @@ body {
     text-align: left;
     font-size: 9vh;
     line-height: 1.8vh;
-    font-family: 'Chinese Rocks Rg', sans-serif !important;
+    font-family: 'Roboto', sans-serif !important;
 }
 
 .inv-options {
@@ -279,7 +279,7 @@ body {
     text-align: center;
     font-size: 1.5vh;
     font-weight: 300;
-    font-family: 'Chinese Rocks Rg', sans-serif !important;
+    font-family: 'Roboto', sans-serif !important;
     outline: none;
 }
 
@@ -298,7 +298,7 @@ body {
     /* background-color: rgba(5, 5, 5, 0.5); */
     width: 100%;
     color: white;
-    font-family: 'Chinese Rocks Rg', sans-serif !important;
+    font-family: 'Roboto', sans-serif !important;
     background-color: rgba(0, 0, 0, 0.192);
     font-size: 1.vh;
     padding: .4vh;
@@ -307,7 +307,7 @@ body {
 .ammo-info {
     position: relative;
     color: white;
-    font-family: 'Chinese Rocks Rg', sans-serif !important;
+    font-family: 'Roboto', sans-serif !important;
     font-weight: 200;
     font-size: 1.vh;
     margin-left: .8vh;
@@ -327,7 +327,7 @@ body {
     text-transform: normal;
     font-size: 1.5vh;
     font-weight: 300;
-    font-family: 'Chinese Rocks Rg', sans-serif !important;
+    font-family: 'Roboto', sans-serif !important;
 }
 
 .inv-option-item {
@@ -365,7 +365,7 @@ body {
     line-height: 48px;
     font-size: 1.2vh;
     font-weight: 900;
-    font-family: 'Chinese Rocks Rg', sans-serif !important;
+    font-family: 'Roboto', sans-serif !important;
     border-radius: 0px;
     border-width: 1px;
     border-style: solid;
@@ -379,7 +379,7 @@ body {
     text-align: center;
     font-size: 1.5vh;
     font-weight: 300;
-    font-family: 'Chinese Rocks Rg', sans-serif !important;
+    font-family: 'Roboto', sans-serif !important;
     outline: none;
 
 }
@@ -431,7 +431,7 @@ body {
     font-size: 1.3vh;
     text-align: left;
     letter-spacing: 0px;
-    font-family: 'Chinese Rocks Rg', sans-serif !important;
+    font-family: 'Roboto', sans-serif !important;
     white-space: pre;
     text-overflow: ellipsis;
     overflow: hidden;
@@ -507,7 +507,7 @@ body {
     position: relative;
     color: white;
     font-size: 20px;
-    font-family: 'Chinese Rocks Rg', sans-serif !important;
+    font-family: 'Roboto', sans-serif !important;
     font-weight: 600;
     letter-spacing: 0.01vh;
     left: 0px;
@@ -522,7 +522,7 @@ body {
     color: rgb(255, 255, 255);
     font-size: 16px;
     font-weight: 900;
-    font-family: 'Chinese Rocks Rg', sans-serif !important;
+    font-family: 'Roboto', sans-serif !important;
     letter-spacing: 0.1vh;
     bottom: 40px;
     right: -35%;
@@ -533,7 +533,7 @@ body {
     position: relative;
     color: white;
     font-size: 20px;
-    font-family: 'Chinese Rocks Rg', sans-serif !important;
+    font-family: 'Roboto', sans-serif !important;
     font-weight: 600;
     letter-spacing: 0.01vh;
     left: -9px;
@@ -549,7 +549,7 @@ body {
     color: rgb(255, 255, 255);
     font-size: 16px;
     font-weight: 900;
-    font-family: 'Chinese Rocks Rg', sans-serif !important;
+    font-family: 'Roboto', sans-serif !important;
     letter-spacing: 0.1vh;
     bottom: 40px;
     right: -33.5%;
@@ -566,7 +566,7 @@ body {
 .player-inv-weight > p {
     color: white;
     font-size: 12px;
-    font-family: 'Chinese Rocks Rg', sans-serif !important;
+    font-family: 'Roboto', sans-serif !important;
 }
 
 .other-inv-info {
@@ -606,14 +606,14 @@ body {
     letter-spacing: 0.3px;
     line-height: 1;
     color: white;
-    font-family: 'Chinese Rocks Rg', sans-serif !important;
+    font-family: 'Roboto', sans-serif !important;
     padding-top: 5px;
     padding-left: 5px;
 }
 
 .item-info-line {
     position: absolute;
-    font-family: 'Chinese Rocks Rg', sans-serif !important;
+    font-family: 'Roboto', sans-serif !important;
     width: 85%;
     background-color: #6d6d6d96;
     height: 0.13vh;
@@ -625,7 +625,7 @@ body {
     font-weight: 400;
     line-height: 1.1;
     letter-spacing: 0.3px;
-    font-family: 'Chinese Rocks Rg', sans-serif !important;
+    font-family: 'Roboto', sans-serif !important;
     color: white;
     padding-left: 5px;
     padding-top: .5vh;
@@ -638,7 +638,7 @@ body {
     width: fit-content;
     position: absolute;
     left: 47%;
-    bottom: 20%;
+    bottom: 10%;
     overflow: hidden;
 }
 
@@ -669,7 +669,7 @@ body {
 #itembox-action > p {
     font-size: 14px;
     font-weight: 400;
-    font-family: 'Chinese Rocks Rg', sans-serif !important;
+    font-family: 'Roboto', sans-serif !important;
     white-space: pre;
     text-overflow: ellipsis;
     overflow: hidden;
@@ -702,7 +702,7 @@ body {
     white-space: pre;
     text-overflow: ellipsis;
     overflow: hidden;
-    font-family: 'Chinese Rocks Rg', sans-serif !important;
+    font-family: 'Roboto', sans-serif !important;
 }
 
 .requiredItem-container {
@@ -730,7 +730,7 @@ body {
     color: white;
     padding: 3px;
     font-size: 14px;
-    font-family: 'Chinese Rocks Rg', sans-serif !important;
+    font-family: 'Roboto', sans-serif !important;
 }
 
 #requiredItem-label {
@@ -752,7 +752,7 @@ body {
     white-space: pre;
     text-overflow: ellipsis;
     overflow: hidden;
-    font-family: 'Chinese Rocks Rg', sans-serif !important;
+    font-family: 'Roboto', sans-serif !important;
 }
 
 .item-slot-img-itembox-test img {
@@ -787,7 +787,7 @@ body {
     text-align: left;
     font-size: 9vh;
     line-height: 0.5vh;
-    font-family: 'Chinese Rocks Rg', sans-serif !important;
+    font-family: 'Roboto', sans-serif !important;
     z-index: -1;
 }
 
@@ -809,33 +809,33 @@ body {
     position: absolute;
     bottom: 0.8vh;
     left: 0.55vw;
-    font-family: 'Chinese Rocks Rg', sans-serif !important;
+    font-family: 'Roboto', sans-serif !important;
 }
 
 .z-hotbar-item-slot-amount > p {
     color: #ffffff;
     text-align: left;
     font-size: 14px;
-    font-family: 'Chinese Rocks Rg', sans-serif !important;
+    font-family: 'Roboto', sans-serif !important;
 }
 
 .z-hotbar-item-slot-amount > p:after {
     content: "x";
-    font-family: 'Chinese Rocks Rg', sans-serif !important;
+    font-family: 'Roboto', sans-serif !important;
 }
 
 .z-hotbar-item-slot-amount-name {
     position: absolute;
     bottom: 0.8vh;
     right: 0.55vw;
-    font-family: 'Chinese Rocks Rg', sans-serif !important;
+    font-family: 'Roboto', sans-serif !important;
 }
 
 .z-hotbar-item-slot-amount-name > p {
     color: #ffffff;
     text-align: right;
     font-size: 14px;
-    font-family: 'Chinese Rocks Rg', sans-serif !important;
+    font-family: 'Roboto', sans-serif !important;
 }
 
 .z-hotbar-item-slot-label {
@@ -852,7 +852,7 @@ body {
     font-size: 11.5px;
     text-align: center;
     text-transform: lowercase;
-    font-family: 'Chinese Rocks Rg', sans-serif !important;
+    font-family: 'Roboto', sans-serif !important;
     font-variant: small-caps;
 }
 
@@ -923,7 +923,7 @@ body {
     bottom: 0;
     right: 0;
     margin: .3vh;
-    font-family: 'Chinese Rocks Rg', sans-serif !important;
+    font-family: 'Roboto', sans-serif !important;
 }
 
 .ammo-box-amount {
@@ -965,7 +965,7 @@ body {
     margin: 5vh;
     font-size: 3vh;
     color: rgb(255, 255, 255);
-    font-family: 'Chinese Rocks Rg', sans-serif !important;
+    font-family: 'Roboto', sans-serif !important;
 }
 
 .weapon-attachments-container-description {
@@ -974,7 +974,7 @@ body {
     top: 5vh;
     font-size: 1.7vh;
     color: rgba(255, 255, 255, 0.8);
-    font-family: 'Chinese Rocks Rg', sans-serif !important;
+    font-family: 'Roboto', sans-serif !important;
 }
 
 .weapon-attachments-container-details {
@@ -983,7 +983,7 @@ body {
     top: 9vh;
     font-size: 1.4vh;
     color: rgba(255, 255, 255, 0.8);
-    font-family: 'Chinese Rocks Rg', sans-serif !important;
+    font-family: 'Roboto', sans-serif !important;
 }
 
 .weapon-attachments-container-detail-durability {
@@ -1023,7 +1023,7 @@ body {
     left: 0;
     margin: 5vh;
     color: rgba(255, 255, 255, 0.8);
-    font-family: 'Chinese Rocks Rg', sans-serif !important;
+    font-family: 'Roboto', sans-serif !important;
     font-size: 1.4vh
 }
 
@@ -1058,7 +1058,7 @@ body {
     text-align: center;
     text-transform: uppercase;
     line-height: 1.9vh;
-    font-family: 'Chinese Rocks Rg', sans-serif !important;
+    font-family: 'Roboto', sans-serif !important;
     font-weight: 100;
 }
 
@@ -1138,7 +1138,7 @@ body {
     text-align: center;
     line-height: 6vh;
     color: white;
-    font-family: 'Chinese Rocks Rg', sans-serif !important;
+    font-family: 'Roboto', sans-serif !important;
     transition: .05s linear;
 }
 
