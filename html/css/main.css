@@ -252,17 +252,6 @@ body {
     opacity: 0.7;
 }
 
-@-webkit-keyframes rainbow {
-	0% { background-position: 0% 50% }
-	50% { background-position: 100% 50% }
-	100% { background-position: 0% 50% }
-}
-@keyframes rainbow {
-	0% { background-position: 0% 50% }
-	50% { background-position: 100% 50% }
-	100% { background-position: 0% 50% }
-}
-
 .inv-option-item {
     margin-top: 10%;
 }
